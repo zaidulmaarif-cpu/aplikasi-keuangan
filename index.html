@@ -3,283 +3,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saldo Santri - Dashboard</title>
+    <title>Saldo Santri - Sistem Manajemen Keuangan Pondok</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        sidebarBg: '#13213c',
-                        sidebarActive: '#22385c',
-                        bodyBg: '#f3f4f8',
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-bodyBg text-slate-700 font-sans flex min-h-screen">
+<body class="bg-gray-100 font-sans text-gray-800 antialiased flex h-screen overflow-hidden">
 
-    <!-- Sidebar -->
-    <aside class="w-64 bg-sidebarBg text-slate-300 flex flex-col shrink-0">
-        <!-- Logo & Brand -->
-        <div class="p-4 flex items-center space-x-3 border-b border-slate-800">
-            <div class="bg-emerald-600 p-2 rounded-lg text-white">
-                <i class="fa-solid fa-kaaba text-xl"></i>
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between shrink-0 h-full overflow-y-auto">
+        <div>
+            <!-- Header Brand -->
+            <div class="p-4 border-b border-slate-800 flex items-center space-x-3">
+                <div class="p-2 bg-indigo-600 rounded-lg text-white">
+                    <i data-lucide="wallet"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-white text-lg leading-tight">Saldo Santri</h1>
+                    <p class="text-xs text-slate-400">Pondok Pesantren</p>
+                </div>
             </div>
-            <div>
-                <h1 class="font-bold text-white text-base leading-tight">Saldo Santri</h1>
-                <p class="text-xs text-slate-400">Pondok Pesantren</p>
-            </div>
+
+            <!-- Navigasi Utama -->
+            <nav class="p-3 space-y-6 text-sm">
+                <!-- Transaksi -->
+                <div>
+                    <button onclick="switchTab('semua-transaksi')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <i data-lucide="arrow-left-right" class="w-4 h-4"></i>
+                        <span>Semua Transaksi</span>
+                    </button>
+                </div>
+
+                <!-- DATA MASTER -->
+                <div>
+                    <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Data Master</p>
+                    <div class="space-y-1">
+                        <button onclick="switchTab('santri')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="users" class="w-4 h-4"></i>
+                            <span>Santri</span>
+                        </button>
+                        <button onclick="switchTab('wali-santri')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="user-check" class="w-4 h-4"></i>
+                            <span>Wali Santri</span>
+                        </button>
+                        <button onclick="switchTab('kategori-transaksi')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="tags" class="w-4 h-4"></i>
+                            <span>Kategori Transaksi</span>
+                        </button>
+                        <button onclick="switchTab('sumber-setoran')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="landmark" class="w-4 h-4"></i>
+                            <span>Sumber Setoran</span>
+                        </button>
+                        <button onclick="switchTab('jenis-iuran')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition bg-indigo-600 text-white font-medium">
+                            <i data-lucide="receipt" class="w-4 h-4"></i>
+                            <span>Jenis Iuran</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- LAPORAN -->
+                <div>
+                    <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Laporan</p>
+                    <div class="space-y-1">
+                        <button onclick="switchTab('laporan-saldo')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="file-text" class="w-4 h-4"></i>
+                            <span>Laporan Saldo</span>
+                        </button>
+                        <button onclick="switchTab('mutasi-saldo')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="history" class="w-4 h-4"></i>
+                            <span>Mutasi Saldo</span>
+                        </button>
+                        <button onclick="switchTab('laporan-iuran')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="clipboard-list" class="w-4 h-4"></i>
+                            <span>Laporan Iuran</span>
+                        </button>
+                        <button onclick="switchTab('kas-petugas')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="badge-dollar-sign" class="w-4 h-4"></i>
+                            <span>Kas Petugas</span>
+                        </button>
+                        <button onclick="switchTab('audit-keuangan')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="pie-chart" class="w-4 h-4"></i>
+                            <span>Audit Keuangan</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SISTEM -->
+                <div>
+                    <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Sistem</p>
+                    <div class="space-y-1">
+                        <button onclick="switchTab('whatsapp-waha')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="message-square" class="w-4 h-4"></i>
+                            <span>WhatsApp WAHA</span>
+                        </button>
+                        <button onclick="switchTab('audit-log')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="shield-alert" class="w-4 h-4"></i>
+                            <span>Audit Log</span>
+                        </button>
+                        <button onclick="switchTab('tutup-buku')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="lock" class="w-4 h-4"></i>
+                            <span>Tutup Buku</span>
+                        </button>
+                        <button onclick="switchTab('operasional-sistem')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="activity" class="w-4 h-4"></i>
+                            <span>Operasional Sistem</span>
+                        </button>
+                        <button onclick="switchTab('langganan')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="box" class="w-4 h-4"></i>
+                            <span>Langganan</span>
+                        </button>
+                        <button onclick="switchTab('pengguna')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="user-cog" class="w-4 h-4"></i>
+                            <span>Pengguna</span>
+                        </button>
+                        <button onclick="switchTab('pengaturan')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                            <i data-lucide="settings" class="w-4 h-4"></i>
+                            <span>Pengaturan</span>
+                        </button>
+                    </div>
+                </div>
+            </nav>
         </div>
 
-        <!-- Navigation Menu -->
-        <nav class="flex-1 px-3 py-4 space-y-6 overflow-y-auto text-sm">
-            <!-- Group: Ringkasan -->
-            <div>
-                <p class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2 px-3">Ringkasan</p>
-                <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-sidebarActive text-white font-medium">
-                    <i class="fa-solid fa-border-all w-5"></i>
-                    <span>Dashboard</span>
-                </a>
-            </div>
-
-            <!-- Group: Operasional -->
-            <div>
-                <p class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2 px-3">Operasional</p>
-                <div class="space-y-1">
-                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
-                        <i class="fa-solid fa-qrcode w-5"></i>
-                        <span>Kasir Barcode</span>
-                    </a>
-                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
-                        <i class="fa-solid fa-wallet w-5"></i>
-                        <span>Setoran Saldo</span>
-                    </a>
-                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
-                        <i class="fa-solid fa-file-invoice-dollar w-5"></i>
-                        <span>Setoran + Iuran</span>
-                    </a>
-                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
-                        <i class="fa-solid fa-building-columns w-5"></i>
-                        <span>Iuran Pondok</span>
-                    </a>
-                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
-                        <i class="fa-solid fa-right-left w-5"></i>
-                        <span>Semua Transaksi</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Group: Data Master -->
-            <div>
-                <p class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2 px-3">Data Master</p>
-                <div class="space-y-1">
-                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
-                        <i class="fa-solid fa-users w-5"></i>
-                        <span>Santri</span>
-                    </a>
-                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
-                        <i class="fa-solid fa-user-group w-5"></i>
-                        <span>Wali Santri</span>
-                    </a>
-                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
-                        <i class="fa-solid fa-tags w-5"></i>
-                        <span>Kategori Transaksi</span>
-                    </a>
-                </div>
-            </div>
-        </nav>
-    </aside>
-
-    <!-- Main Content Area -->
-    <div class="flex-1 flex flex-col min-w-0">
-        
-        <!-- Top Header -->
-        <header class="bg-white border-b border-slate-200 px-8 py-3 flex justify-between items-center sticky top-0 z-10">
-            <div>
-                <h2 class="text-xl font-bold text-slate-800">Dashboard</h2>
-                <p class="text-xs text-slate-500">Ringkasan operasional hari ini</p>
-            </div>
-            
-            <!-- User Profile Dropdown -->
-            <div class="flex items-center space-x-3 cursor-pointer">
-                <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center text-sm">
-                    A
-                </div>
-                <div class="text-left">
-                    <p class="text-sm font-semibold text-slate-800 leading-tight">Administrator <i class="fa-solid fa-chevron-down text-xs text-slate-400 ml-1"></i></p>
+        <!-- Profil User -->
+        <div class="p-3 border-t border-slate-800">
+            <div class="flex items-center space-x-3 px-3 py-2">
+                <div class="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold">A</div>
+                <div>
+                    <p class="text-sm font-medium text-white">Administrator</p>
                     <p class="text-xs text-slate-400">Admin</p>
                 </div>
             </div>
+        </div>
+    </aside>
+
+    <!-- AREA KONTEN UTAMA -->
+    <main class="flex-1 bg-slate-50 flex flex-col h-full overflow-hidden">
+        <!-- TOPBAR -->
+        <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0">
+            <h2 id="page-title" class="text-xl font-bold text-gray-800">Jenis Iuran</h2>
+            <div class="flex items-center space-x-4">
+                <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-medium">Sistem Aktif</span>
+            </div>
         </header>
 
-        <!-- Main Body -->
-        <main class="p-8 space-y-6 overflow-y-auto">
-            
-            <!-- Top Metric Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                <!-- Card 1 -->
-                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
-                    <div class="w-12 h-12 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center text-xl shrink-0">
-                        <i class="fa-solid fa-users"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-400">Santri aktif</p>
-                        <h3 class="text-xl font-bold text-slate-800">12</h3>
-                    </div>
+        <!-- ISI TAB KONTEN -->
+        <div class="p-6 overflow-y-auto flex-1">
+
+            <!-- 1. JENIS IURAN -->
+            <section id="jenis-iuran" class="tab-content space-y-4">
+                <div class="bg-amber-50 border border-amber-200 text-amber-800 p-4 rounded-xl flex items-start space-x-3">
+                    <i data-lucide="alert-triangle" class="w-5 h-5 mt-0.5 shrink-0 text-amber-600"></i>
+                    <p class="text-sm">Semua pemotongan dari modul iuran dapat membuat saldo melewati batas minus. Pastikan nominal dan periode sudah benar.</p>
                 </div>
 
-                <!-- Card 2 -->
-                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
-                    <div class="w-12 h-12 rounded-lg bg-emerald-50 text-emerald-500 flex items-center justify-center text-xl shrink-0">
-                        <i class="fa-solid fa-wallet"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-400">Total saldo</p>
-                        <h3 class="text-xl font-bold text-slate-800">Rp2.100.000</h3>
-                    </div>
+                <div class="flex justify-end">
+                    <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 text-sm font-medium shadow-sm transition">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        <span>Tambah Jenis Iuran</span>
+                    </button>
                 </div>
 
-                <!-- Card 3 -->
-                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
-                    <div class="w-12 h-12 rounded-lg bg-rose-50 text-rose-500 flex items-center justify-center text-xl shrink-0">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-400">Total saldo minus</p>
-                        <h3 class="text-xl font-bold text-slate-800">Rp0</h3>
-                    </div>
-                </div>
-
-                <!-- Card 4 -->
-                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
-                    <div class="w-12 h-12 rounded-lg bg-amber-50 text-amber-500 flex items-center justify-center text-xl shrink-0">
-                        <i class="fa-solid fa-bell"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-400">Saldo di bawah batas</p>
-                        <h3 class="text-xl font-bold text-slate-800">0</h3>
-                    </div>
-                </div>
-
-                <!-- Card 5 -->
-                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
-                    <div class="w-12 h-12 rounded-lg bg-sky-50 text-sky-500 flex items-center justify-center text-xl shrink-0">
-                        <i class="fa-solid fa-receipt"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs text-slate-400">Tagihan jatuh tempo</p>
-                        <h3 class="text-xl font-bold text-slate-800">0</h3>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Middle Section Cards -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Aktivitas Hari Ini -->
-                <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm">
-                    <h4 class="font-semibold text-slate-800 mb-4 text-sm">Aktivitas hari ini</h4>
-                    <div class="space-y-3 text-sm">
-                        <div class="flex justify-between items-center py-1">
-                            <span class="text-slate-500">Transaksi</span>
-                            <span class="font-bold text-slate-800">0</span>
-                        </div>
-                        <div class="flex justify-between items-center py-1">
-                            <span class="text-slate-500 flex items-center gap-2">
-                                <i class="fa-solid fa-check text-emerald-500 text-xs"></i> Penerimaan kas
-                            </span>
-                            <span class="font-bold text-emerald-600">Rp0</span>
-                        </div>
-                        <div class="flex justify-between items-center py-1">
-                            <span class="text-slate-500 flex items-center gap-2">
-                                <i class="fa-solid fa-arrow-up-right-from-square text-rose-500 text-xs"></i> Pengeluaran biasa
-                            </span>
-                            <span class="font-bold text-rose-600">Rp0</span>
-                        </div>
-                        <div class="flex justify-between items-center py-1 border-t border-slate-100 pt-3">
-                            <span class="text-slate-500">Sisa tagihan jatuh tempo</span>
-                            <span class="font-bold text-slate-800">Rp0</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Saldo perlu perhatian -->
-                <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
-                    <div class="flex justify-between items-center">
-                        <h4 class="font-semibold text-slate-800 text-sm">Saldo perlu perhatian</h4>
-                        <a href="#" class="text-xs text-blue-600 hover:underline">Lihat semua</a>
-                    </div>
-                    <div class="my-6 text-center">
-                        <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 mb-2">
-                            <i class="fa-solid fa-check text-lg"></i>
-                        </div>
-                        <p class="text-xs text-slate-400">Semua saldo aman.</p>
-                    </div>
-                    <div></div>
-                </div>
-
-                <!-- Iuran jatuh tempo -->
-                <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
-                    <div class="flex justify-between items-center">
-                        <h4 class="font-semibold text-slate-800 text-sm">Iuran jatuh tempo</h4>
-                        <a href="#" class="text-xs text-blue-600 hover:underline">Lihat semua</a>
-                    </div>
-                    <div class="my-6 text-center">
-                        <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 mb-2">
-                            <i class="fa-solid fa-check text-lg"></i>
-                        </div>
-                        <p class="text-xs text-slate-400">Tidak ada tunggakan.</p>
-                    </div>
-                    <div></div>
-                </div>
-            </div>
-
-            <!-- Bottom Section: Transaksi Terbaru -->
-            <div class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
-                <div class="p-5 flex justify-between items-center border-b border-slate-100">
-                    <h4 class="font-semibold text-slate-800 text-sm">Transaksi terbaru</h4>
-                    <div class="flex space-x-2">
-                        <button class="px-3 py-1.5 border border-blue-600 text-blue-600 hover:bg-blue-50 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition">
-                            <i class="fa-solid fa-qrcode"></i> Kasir
-                        </button>
-                        <button class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition">
-                            <i class="fa-solid fa-plus"></i> Setoran
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Table -->
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse text-xs">
-                        <thead>
-                            <tr class="bg-slate-50 text-slate-400 font-semibold uppercase border-b border-slate-100">
-                                <th class="p-4">Waktu</th>
-                                <th class="p-4">No. Struk</th>
-                                <th class="p-4">Santri</th>
-                                <th class="p-4">Jenis</th>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-gray-500 uppercase text-xs font-semibold border-b">
+                            <tr>
+                                <th class="p-4">Jenis Iuran</th>
+                                <th class="p-4">Frekuensi</th>
                                 <th class="p-4">Nominal</th>
-                                <th class="p-4">Saldo Akhir</th>
+                                <th class="p-4">Jatuh Tempo</th>
+                                <th class="p-4">Potong Otomatis</th>
+                                <th class="p-4">Status</th>
+                                <th class="p-4 text-center">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-100 text-slate-600">
-                            <tr class="hover:bg-slate-50/50 transition">
-                                <td class="p-4 font-medium">22/08 13:52</td>
-                                <td class="p-4">IUR-260822-000013</td>
-                                <td class="p-4 font-semibold text-slate-800">Ahmad Fauzan</td>
-                                <td class="p-4">Fee</td>
-                                <td class="p-4 text-rose-600 font-semibold">-Rp150.000</td>
-                                <td class="p-4 font-semibold text-slate-800">Rp175.000</td>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4 font-medium text-gray-900">Iuran Bulanan<br><span class="text-xs text-gray-400">IUR-BLN</span></td>
+                                <td class="p-4">Bulanan</td>
+                                <td class="p-4 font-semibold">Rp150.000</td>
+                                <td class="p-4">10</td>
+                                <td class="p-4"><span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-xs">Ya</span></td>
+                                <td class="p-4"><span class="text-emerald-600 font-medium">Aktif</span></td>
+                                <td class="p-4 text-center">
+                                    <button class="p-1.5 border rounded text-gray-500 hover:bg-gray-100"><i data-lucide="edit-2" class="w-4 h-4"></i></button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </section>
 
-        </main>
-    </div>
+            <!-- 2. AUDIT KEUANGAN -->
+            <section id="audit-keuangan" class="tab-content space-y-6 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <p class="text-xs text-gray-500 font-medium">Saldo Santri Sebelumnya</p>
+                        <h3 class="text-2xl font-bold text-gray-800 mt-1">Rp0</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <p class="text-xs text-emerald-600 font-medium">Uang Masuk Saldo</p>
+                        <h3 class="text-2xl font-bold text-emerald-600 mt-1">Rp6.000.000</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <p class="text-xs text-rose-600 font-medium">Uang Keluar Saldo</p>
+                        <h3 class="text-2xl font-bold text-rose-600 mt-1">Rp3.900.000</h3>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                        <p class="text-xs text-sky-600 font-medium">Saldo Santri Akhir</p>
+                        <h3 class="text-2xl font-bold text-sky-600 mt-1">Rp2.100.000</h3>
+                    </div>
+                </div>
 
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-emerald-200 bg-emerald-50/30">
+                        <p class="text-xs text-gray-600">Iuran dari Saldo Santri</p>
+                        <h4 class="text-xl font-bold text-emerald-700 mt-1">Rp3.600.000</h4>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-200">
+                        <p class="text-xs text-gray-600">Iuran Bayar Langsung</p>
+                        <h4 class="text-xl font-bold text-gray-700 mt-1">Rp0</h4>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-amber-200 bg-amber-50/30">
+                        <p class="text-xs text-amber-800">Uang Murni Pondok</p>
+                        <h4 class="text-xl font-bold text-amber-600 mt-1">Rp3.600.000</h4>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. LANGGANAN -->
+            <section id="langganan" class="tab-content space-y-6 hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="md:col-span-2 bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-bold text-gray-800">Status Langganan</h3>
+                            <span class="bg-emerald-100 text-emerald-800 text-xs px-3 py-1 rounded-full font-semibold">Aktif</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 pt-2">
+                            <div>
+                                <p class="text-xs text-gray-400">Paket</p>
+                                <p class="text-xl font-bold text-gray-800">Enterprise</p>
+                                <p class="text-xs text-gray-500">Skala besar / multi unit</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400">Batas Santri</p>
+                                <p class="text-xl font-bold text-gray-800">1000 santri</p>
+                            </div>
+                        </div>
+                        <div class="border-t pt-4 flex justify-between items-center">
+                            <div>
+                                <p class="text-xs text-gray-400">Sisa Masa Berlaku</p>
+                                <p class="text-2xl font-bold text-emerald-600">4007 hari</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800 mb-2">Perpanjangan</h3>
+                            <p class="text-xs text-gray-500 mb-4">Hubungi pengelola platform untuk memperpanjang atau mengganti paket layanan.</p>
+                        </div>
+                        <button class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-lg font-medium flex items-center justify-center space-x-2 text-sm">
+                            <i data-lucide="message-circle" class="w-4 h-4"></i>
+                            <span>Hubungi via WhatsApp</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. PENGATURAN -->
+            <section id="pengaturan" class="tab-content space-y-6 hidden">
+                <div class="bg-white rounded-xl border border-gray-200 shadow-sm flex overflow-hidden">
+                    <div class="w-48 bg-slate-50 border-r border-gray-200 p-2 space-y-1">
+                        <button class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium bg-indigo-50 text-indigo-600">Profil Pondok</button>
+                        <button class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">Kasir</button>
+                        <button class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">Struk</button>
+                        <button class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">Template Pesan</button>
+                    </div>
+                    <div class="flex-1 p-6 space-y-4">
+                        <h3 class="font-bold text-gray-800">Profil Pondok</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-semibold text-gray-600 block mb-1">Nama Pondok</label>
+                                <input type="text" value="Pondok Pesantren" class="w-full border rounded-lg p-2 text-sm focus:outline-none focus:border-indigo-500">
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold text-gray-600 block mb-1">Telepon</label>
+                                <input type="text" placeholder="Nomor Telepon" class="w-full border rounded-lg p-2 text-sm focus:outline-none focus:border-indigo-500">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-gray-600 block mb-1">Alamat</label>
+                            <textarea class="w-full border rounded-lg p-2 text-sm focus:outline-none focus:border-indigo-500" rows="3">Alamat pondok</textarea>
+                        </div>
+                        <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700">Simpan Profil</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB GENERIC UNTUK FITUR LAIN (PLACEHOLDER DYNAMIC) -->
+            <section id="generic-tab" class="tab-content hidden">
+                <div class="bg-white p-8 rounded-xl border border-gray-200 text-center text-gray-500">
+                    <i data-lucide="construction" class="w-12 h-12 mx-auto mb-3 text-indigo-500"></i>
+                    <h3 class="text-lg font-bold text-gray-800" id="generic-title">Modul Siap Digunakan</h3>
+                    <p class="text-sm text-gray-500 mt-1">Halaman ini telah terintegrasi dalam skema antarmuka dashboard Saldo Santri.</p>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- SCRIPT INTERAKTIF NAVIGASI TAB -->
+    <script>
+        // Inisialisasi Lucide Icons
+        lucide.createIcons();
+
+        function switchTab(tabId) {
+            // Sembunyikan semua konten tab
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(el => el.classList.add('hidden'));
+
+            // Reset gaya tombol navigasi
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-indigo-600', 'text-white', 'font-medium');
+                btn.classList.add('hover:bg-slate-800');
+            });
+
+            // Tampilkan tab target atau fallback generic tab
+            const targetSection = document.getElementById(tabId);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+            } else {
+                const generic = document.getElementById('generic-tab');
+                document.getElementById('generic-title').innerText = tabId.replace('-', ' ').toUpperCase();
+                generic.classList.remove('hidden');
+            }
+
+            // Update judul topbar
+            const activeBtn = event.currentTarget;
+            if(activeBtn) {
+                activeBtn.classList.add('bg-indigo-600', 'text-white', 'font-medium');
+                const titleText = activeBtn.querySelector('span').innerText;
+                document.getElementById('page-title').innerText = titleText;
+            }
+        }
+    </script>
 </body>
 </html>
