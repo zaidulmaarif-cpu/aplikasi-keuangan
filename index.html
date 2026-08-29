@@ -1,235 +1,285 @@
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aplikasi Keuangan - Dark Mode</title>
+    <title>Saldo Santri - Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        darkBg: '#0f172a',
-                        cardBg: '#1e293b',
-                        borderDark: '#334155'
+                        sidebarBg: '#13213c',
+                        sidebarActive: '#22385c',
+                        bodyBg: '#f3f4f8',
                     }
                 }
             }
         }
     </script>
 </head>
-<body class="bg-darkBg text-slate-100 min-h-screen flex flex-col font-sans">
+<body class="bg-bodyBg text-slate-700 font-sans flex min-h-screen">
 
-    <header class="bg-cardBg border-b border-borderDark sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <i class="fa-solid font-bold text-emerald-400 text-2xl fa-wallet"></i>
-                <h1 class="text-xl font-bold tracking-wide text-white">FinTrack <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Dark</span></h1>
+    <!-- Sidebar -->
+    <aside class="w-64 bg-sidebarBg text-slate-300 flex flex-col shrink-0">
+        <!-- Logo & Brand -->
+        <div class="p-4 flex items-center space-x-3 border-b border-slate-800">
+            <div class="bg-emerald-600 p-2 rounded-lg text-white">
+                <i class="fa-solid fa-kaaba text-xl"></i>
             </div>
-            <div class="text-sm text-slate-400">
-                <i class="fa-regular fa-calendar-alt mr-1"></i> <span id="current-date"></span>
+            <div>
+                <h1 class="font-bold text-white text-base leading-tight">Saldo Santri</h1>
+                <p class="text-xs text-slate-400">Pondok Pesantren</p>
             </div>
         </div>
-    </header>
 
-    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Navigation Menu -->
+        <nav class="flex-1 px-3 py-4 space-y-6 overflow-y-auto text-sm">
+            <!-- Group: Ringkasan -->
+            <div>
+                <p class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2 px-3">Ringkasan</p>
+                <a href="#" class="flex items-center space-x-3 px-3 py-2.5 rounded-lg bg-sidebarActive text-white font-medium">
+                    <i class="fa-solid fa-border-all w-5"></i>
+                    <span>Dashboard</span>
+                </a>
+            </div>
+
+            <!-- Group: Operasional -->
+            <div>
+                <p class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2 px-3">Operasional</p>
+                <div class="space-y-1">
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
+                        <i class="fa-solid fa-qrcode w-5"></i>
+                        <span>Kasir Barcode</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
+                        <i class="fa-solid fa-wallet w-5"></i>
+                        <span>Setoran Saldo</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
+                        <i class="fa-solid fa-file-invoice-dollar w-5"></i>
+                        <span>Setoran + Iuran</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
+                        <i class="fa-solid fa-building-columns w-5"></i>
+                        <span>Iuran Pondok</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
+                        <i class="fa-solid fa-right-left w-5"></i>
+                        <span>Semua Transaksi</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Group: Data Master -->
+            <div>
+                <p class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider mb-2 px-3">Data Master</p>
+                <div class="space-y-1">
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
+                        <i class="fa-solid fa-users w-5"></i>
+                        <span>Santri</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
+                        <i class="fa-solid fa-user-group w-5"></i>
+                        <span>Wali Santri</span>
+                    </a>
+                    <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800/60 hover:text-white transition">
+                        <i class="fa-solid fa-tags w-5"></i>
+                        <span>Kategori Transaksi</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="flex-1 flex flex-col min-w-0">
         
-        <div class="lg:col-span-2 space-y-6">
+        <!-- Top Header -->
+        <header class="bg-white border-b border-slate-200 px-8 py-3 flex justify-between items-center sticky top-0 z-10">
+            <div>
+                <h2 class="text-xl font-bold text-slate-800">Dashboard</h2>
+                <p class="text-xs text-slate-500">Ringkasan operasional hari ini</p>
+            </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-cardBg border border-borderDark p-5 rounded-xl shadow-lg">
-                    <p class="text-xs text-slate-400 uppercase font-semibold">Total Saldo</p>
-                    <h2 id="total-balance" class="text-2xl font-bold text-white mt-2">Rp 0</h2>
+            <!-- User Profile Dropdown -->
+            <div class="flex items-center space-x-3 cursor-pointer">
+                <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 font-bold flex items-center justify-center text-sm">
+                    A
                 </div>
-                <div class="bg-cardBg border border-borderDark p-5 rounded-xl shadow-lg">
-                    <p class="text-xs text-emerald-400 uppercase font-semibold">Total Pemasukan</p>
-                    <h2 id="total-income" class="text-2xl font-bold text-emerald-400 mt-2">Rp 0</h2>
+                <div class="text-left">
+                    <p class="text-sm font-semibold text-slate-800 leading-tight">Administrator <i class="fa-solid fa-chevron-down text-xs text-slate-400 ml-1"></i></p>
+                    <p class="text-xs text-slate-400">Admin</p>
                 </div>
-                <div class="bg-cardBg border border-borderDark p-5 rounded-xl shadow-lg">
-                    <p class="text-xs text-rose-400 uppercase font-semibold">Total Pengeluaran</p>
-                    <h2 id="total-expense" class="text-2xl font-bold text-rose-400 mt-2">Rp 0</h2>
+            </div>
+        </header>
+
+        <!-- Main Body -->
+        <main class="p-8 space-y-6 overflow-y-auto">
+            
+            <!-- Top Metric Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                <!-- Card 1 -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400">Santri aktif</p>
+                        <h3 class="text-xl font-bold text-slate-800">12</h3>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-lg bg-emerald-50 text-emerald-500 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400">Total saldo</p>
+                        <h3 class="text-xl font-bold text-slate-800">Rp2.100.000</h3>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-lg bg-rose-50 text-rose-500 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400">Total saldo minus</p>
+                        <h3 class="text-xl font-bold text-slate-800">Rp0</h3>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-lg bg-amber-50 text-amber-500 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-bell"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400">Saldo di bawah batas</p>
+                        <h3 class="text-xl font-bold text-slate-800">0</h3>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-sm flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-lg bg-sky-50 text-sky-500 flex items-center justify-center text-xl shrink-0">
+                        <i class="fa-solid fa-receipt"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs text-slate-400">Tagihan jatuh tempo</p>
+                        <h3 class="text-xl font-bold text-slate-800">0</h3>
+                    </div>
                 </div>
             </div>
 
-            <div class="bg-cardBg border border-borderDark p-5 rounded-xl shadow-lg">
-                <h3 class="text-base font-semibold text-white mb-4"><i class="fa-solid fa-chart-pie mr-2 text-indigo-400"></i>Ringkasan Visual</h3>
-                <div class="h-64 relative flex justify-center items-center">
-                    <canvas id="financeChart"></canvas>
+            <!-- Middle Section Cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Aktivitas Hari Ini -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm">
+                    <h4 class="font-semibold text-slate-800 mb-4 text-sm">Aktivitas hari ini</h4>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between items-center py-1">
+                            <span class="text-slate-500">Transaksi</span>
+                            <span class="font-bold text-slate-800">0</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1">
+                            <span class="text-slate-500 flex items-center gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 text-xs"></i> Penerimaan kas
+                            </span>
+                            <span class="font-bold text-emerald-600">Rp0</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1">
+                            <span class="text-slate-500 flex items-center gap-2">
+                                <i class="fa-solid fa-arrow-up-right-from-square text-rose-500 text-xs"></i> Pengeluaran biasa
+                            </span>
+                            <span class="font-bold text-rose-600">Rp0</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1 border-t border-slate-100 pt-3">
+                            <span class="text-slate-500">Sisa tagihan jatuh tempo</span>
+                            <span class="font-bold text-slate-800">Rp0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Saldo perlu perhatian -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-semibold text-slate-800 text-sm">Saldo perlu perhatian</h4>
+                        <a href="#" class="text-xs text-blue-600 hover:underline">Lihat semua</a>
+                    </div>
+                    <div class="my-6 text-center">
+                        <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 mb-2">
+                            <i class="fa-solid fa-check text-lg"></i>
+                        </div>
+                        <p class="text-xs text-slate-400">Semua saldo aman.</p>
+                    </div>
+                    <div></div>
+                </div>
+
+                <!-- Iuran jatuh tempo -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-semibold text-slate-800 text-sm">Iuran jatuh tempo</h4>
+                        <a href="#" class="text-xs text-blue-600 hover:underline">Lihat semua</a>
+                    </div>
+                    <div class="my-6 text-center">
+                        <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 mb-2">
+                            <i class="fa-solid fa-check text-lg"></i>
+                        </div>
+                        <p class="text-xs text-slate-400">Tidak ada tunggakan.</p>
+                    </div>
+                    <div></div>
                 </div>
             </div>
 
-            <div class="bg-cardBg border border-borderDark p-5 rounded-xl shadow-lg">
-                <h3 class="text-base font-semibold text-white mb-4"><i class="fa-solid fa-list mr-2 text-indigo-400"></i>Riwayat Transaksi</h3>
+            <!-- Bottom Section: Transaksi Terbaru -->
+            <div class="bg-white rounded-xl border border-slate-200/80 shadow-sm overflow-hidden">
+                <div class="p-5 flex justify-between items-center border-b border-slate-100">
+                    <h4 class="font-semibold text-slate-800 text-sm">Transaksi terbaru</h4>
+                    <div class="flex space-x-2">
+                        <button class="px-3 py-1.5 border border-blue-600 text-blue-600 hover:bg-blue-50 text-xs font-semibold rounded-lg flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-qrcode"></i> Kasir
+                        </button>
+                        <button class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-plus"></i> Setoran
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Table -->
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm text-slate-300">
-                        <thead class="bg-slate-800 text-slate-400 uppercase text-xs border-b border-borderDark">
-                            <tr>
-                                <th class="py-3 px-4">Deskripsi</th>
-                                <th class="py-3 px-4">Kategori</th>
-                                <th class="py-3 px-4">Jumlah</th>
-                                <th class="py-3 px-4 text-center">Aksi</th>
+                    <table class="w-full text-left border-collapse text-xs">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-400 font-semibold uppercase border-b border-slate-100">
+                                <th class="p-4">Waktu</th>
+                                <th class="p-4">No. Struk</th>
+                                <th class="p-4">Santri</th>
+                                <th class="p-4">Jenis</th>
+                                <th class="p-4">Nominal</th>
+                                <th class="p-4">Saldo Akhir</th>
                             </tr>
                         </thead>
-                        <tbody id="transaction-list" class="divide-y divide-borderDark">
-                            </tbody>
+                        <tbody class="divide-y divide-slate-100 text-slate-600">
+                            <tr class="hover:bg-slate-50/50 transition">
+                                <td class="p-4 font-medium">22/08 13:52</td>
+                                <td class="p-4">IUR-260822-000013</td>
+                                <td class="p-4 font-semibold text-slate-800">Ahmad Fauzan</td>
+                                <td class="p-4">Fee</td>
+                                <td class="p-4 text-rose-600 font-semibold">-Rp150.000</td>
+                                <td class="p-4 font-semibold text-slate-800">Rp175.000</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
-        </div>
 
-        <div class="space-y-6">
-            <div class="bg-cardBg border border-borderDark p-5 rounded-xl shadow-lg sticky top-24">
-                <h3 class="text-base font-semibold text-white mb-4"><i class="fa-solid fa-plus-circle mr-2 text-emerald-400"></i>Tambah Transaksi</h3>
-                <form id="transaction-form" class="space-y-4">
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">Deskripsi</label>
-                        <input type="text" id="desc" required placeholder="Contoh: Gaji, Belanja Bulanan" 
-                            class="w-full bg-slate-800 border border-borderDark rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">Jumlah (Rp)</label>
-                        <input type="number" id="amount" required placeholder="0" 
-                            class="w-full bg-slate-800 border border-borderDark rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs text-slate-400 mb-1">Tipe Transaksi</label>
-                        <select id="type" 
-                            class="w-full bg-slate-800 border border-borderDark rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500">
-                            <option value="income">Pemasukan (+)</option>
-                            <option value="expense">Pengeluaran (-)</option>
-                        </select>
-                    </div>
-                    <button type="submit" 
-                        class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium py-2 px-4 rounded-lg transition duration-200 text-sm shadow-md">
-                        Simpan Transaksi
-                    </button>
-                </form>
-            </div>
-        </div>
+        </main>
+    </div>
 
-    </main>
-
-    <footer class="bg-cardBg border-t border-borderDark py-4 text-center text-xs text-slate-500 mt-auto">
-        <p>&copy; 2026 FinTrack Dark Edition. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // Tanggal Saat Ini
-        document.getElementById('current-date').innerText = new Date().toLocaleDateString('id-ID', {
-            weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-        });
-
-        // State Transaksi (Mengambil dari LocalStorage)
-        let transactions = JSON.parse(localStorage.getItem('fin_transactions')) || [];
-
-        // Inisialisasi Chart.js
-        const ctx = document.getElementById('financeChart').getContext('2d');
-        let chart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Pemasukan', 'Pengeluaran'],
-                datasets: [{
-                    data: [0, 0],
-                    backgroundColor: ['#10b981', '#f43f5e'],
-                    borderColor: '#1e293b',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { labels: { color: '#94a3b8' } }
-                }
-            }
-        });
-
-        // Format Currency Rupiah
-        function formatRupiah(number) {
-            return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(number);
-        }
-
-        // Update UI Summary & Chart
-        function updateUI() {
-            const income = transactions
-                .filter(t => t.type === 'income')
-                .reduce((acc, t) => acc + t.amount, 0);
-
-            const expense = transactions
-                .filter(t => t.type === 'expense')
-                .reduce((acc, t) => acc + t.amount, 0);
-
-            const balance = income - expense;
-
-            document.getElementById('total-balance').innerText = formatRupiah(balance);
-            document.getElementById('total-income').innerText = formatRupiah(income);
-            document.getElementById('total-expense').innerText = formatRupiah(expense);
-
-            // Render Table Rows
-            const list = document.getElementById('transaction-list');
-            list.innerHTML = '';
-
-            if (transactions.length === 0) {
-                list.innerHTML = `<tr><td colspan="4" class="text-center py-4 text-slate-500">Belum ada transaksi.</td></tr>`;
-            } else {
-                transactions.forEach((t, index) => {
-                    const row = document.createElement('tr');
-                    const isIncome = t.type === 'income';
-                    row.className = "hover:bg-slate-800/50 transition";
-                    row.innerHTML = `
-                        <td class="py-3 px-4 font-medium text-white">${t.desc}</td>
-                        <td class="py-3 px-4">
-                            <span class="px-2 py-1 text-xs rounded-full ${isIncome ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'}">
-                                ${isIncome ? 'Pemasukan' : 'Pengeluaran'}
-                            </span>
-                        </td>
-                        <td class="py-3 px-4 ${isIncome ? 'text-emerald-400' : 'text-rose-400'} font-semibold">
-                            ${isIncome ? '+' : '-'}${formatRupiah(t.amount)}
-                        </td>
-                        <td class="py-3 px-4 text-center">
-                            <button onclick="deleteTransaction(${index})" class="text-slate-500 hover:text-rose-400 transition">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </td>
-                    `;
-                    list.appendChild(row);
-                });
-            }
-
-            // Update Chart Data
-            chart.data.datasets[0].data = [income, expense];
-            chart.update();
-
-            // Save to LocalStorage
-            localStorage.setItem('fin_transactions', JSON.stringify(transactions));
-        }
-
-        // Tambah Transaksi
-        document.getElementById('transaction-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const desc = document.getElementById('desc').value;
-            const amount = parseFloat(document.getElementById('amount').value);
-            const type = document.getElementById('type').value;
-
-            if (desc && !isNaN(amount) && amount > 0) {
-                transactions.unshift({ desc, amount, type });
-                updateUI();
-                this.reset();
-            }
-        });
-
-        // Hapus Transaksi
-        function deleteTransaction(index) {
-            transactions.splice(index, 1);
-            updateUI();
-        }
-
-        // Initial Load
-        updateUI();
-    </script>
 </body>
 </html>
