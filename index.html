@@ -33,7 +33,7 @@
             <nav class="p-3 space-y-6 text-sm">
                 <!-- Transaksi -->
                 <div>
-                    <button onclick="switchTab('semua-transaksi')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                    <button onclick="switchTab('semua-transaksi')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition bg-indigo-600 text-white font-medium">
                         <i data-lucide="arrow-left-right" class="w-4 h-4"></i>
                         <span>Semua Transaksi</span>
                     </button>
@@ -59,7 +59,7 @@
                             <i data-lucide="landmark" class="w-4 h-4"></i>
                             <span>Sumber Setoran</span>
                         </button>
-                        <button onclick="switchTab('jenis-iuran')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition bg-indigo-600 text-white font-medium">
+                        <button onclick="switchTab('jenis-iuran')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
                             <i data-lucide="receipt" class="w-4 h-4"></i>
                             <span>Jenis Iuran</span>
                         </button>
@@ -146,29 +146,171 @@
     <main class="flex-1 bg-slate-50 flex flex-col h-full overflow-hidden">
         <!-- TOPBAR -->
         <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0">
-            <h2 id="page-title" class="text-xl font-bold text-gray-800">Jenis Iuran</h2>
+            <h2 id="page-title" class="text-xl font-bold text-gray-800">Semua Transaksi</h2>
             <div class="flex items-center space-x-4">
                 <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-medium">Sistem Aktif</span>
             </div>
         </header>
 
         <!-- ISI TAB KONTEN -->
-        <div class="p-6 overflow-y-auto flex-1">
+        <div class="p-6 overflow-y-auto flex-1 space-y-6">
 
-            <!-- 1. JENIS IURAN -->
-            <section id="jenis-iuran" class="tab-content space-y-4">
+            <!-- 1. SEMUA TRANSAKSI -->
+            <section id="semua-transaksi" class="tab-content space-y-4">
+                <div class="flex justify-between items-center flex-wrap gap-3">
+                    <input type="text" placeholder="Cari NIS / Nama Santri / Invoice..." class="border border-gray-300 rounded-lg px-3 py-2 text-sm w-72 focus:outline-none focus:border-indigo-500">
+                    <div class="flex space-x-2">
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 text-sm font-medium transition">
+                            <i data-lucide="plus" class="w-4 h-4"></i><span>Tambah Transaksi</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-gray-500 uppercase text-xs font-semibold border-b">
+                            <tr>
+                                <th class="p-4">Tanggal</th>
+                                <th class="p-4">No. Invoice</th>
+                                <th class="p-4">Santri</th>
+                                <th class="p-4">Kategori</th>
+                                <th class="p-4">Jenis</th>
+                                <th class="p-4">Nominal</th>
+                                <th class="p-4">Petugas</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr class="hover:bg-slate-50">
+                                <td class="p-4">29/08/2026 14:10</td>
+                                <td class="p-4 font-mono text-xs text-indigo-600">TRX-20260829-001</td>
+                                <td class="p-4 font-medium">Ahmad Fauzi<br><span class="text-xs text-gray-400">NIS: 2025001</span></td>
+                                <td class="p-4">Topup Saldo</td>
+                                <td class="p-4"><span class="bg-emerald-100 text-emerald-700 text-xs px-2 py-0.5 rounded">Setoran</span></td>
+                                <td class="p-4 font-semibold text-emerald-600">+Rp200.000</td>
+                                <td class="p-4 text-xs text-gray-500">Kasir Utama</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 2. SANTRI -->
+            <section id="santri" class="tab-content space-y-4 hidden">
+                <div class="flex justify-between items-center">
+                    <input type="text" placeholder="Cari santri..." class="border rounded-lg px-3 py-2 text-sm w-72">
+                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium">+ Tambah Santri</button>
+                </div>
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
+                            <tr>
+                                <th class="p-4">NIS</th>
+                                <th class="p-4">Nama Santri</th>
+                                <th class="p-4">Kamar / Kelas</th>
+                                <th class="p-4">Wali Santri</th>
+                                <th class="p-4">Saldo</th>
+                                <th class="p-4">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="p-4 font-mono text-xs">2025001</td>
+                                <td class="p-4 font-medium">Ahmad Fauzi</td>
+                                <td class="p-4">Kamar A-01 (Kelas 1)</td>
+                                <td class="p-4">Bpk. Supriyadi</td>
+                                <td class="p-4 font-semibold text-indigo-600">Rp250.000</td>
+                                <td class="p-4"><span class="bg-emerald-100 text-emerald-700 text-xs px-2 py-0.5 rounded">Aktif</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 3. WALI SANTRI -->
+            <section id="wali-santri" class="tab-content space-y-4 hidden">
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
+                            <tr>
+                                <th class="p-4">Nama Wali</th>
+                                <th class="p-4">No. WhatsApp</th>
+                                <th class="p-4">Santri</th>
+                                <th class="p-4">Alamat</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="p-4 font-medium">Bpk. Supriyadi</td>
+                                <td class="p-4 font-mono text-xs text-emerald-600">628123456789</td>
+                                <td class="p-4">Ahmad Fauzi</td>
+                                <td class="p-4 text-xs text-gray-500">Jl. Pesantren No. 12, Jawa Timur</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 4. KATEGORI TRANSAKSI -->
+            <section id="kategori-transaksi" class="tab-content space-y-4 hidden">
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
+                            <tr>
+                                <th class="p-4">Kode</th>
+                                <th class="p-4">Nama Kategori</th>
+                                <th class="p-4">Tipe</th>
+                                <th class="p-4">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="p-4 font-mono text-xs">KAT-001</td>
+                                <td class="p-4 font-medium">Topup Saldo Utama</td>
+                                <td class="p-4"><span class="bg-emerald-100 text-emerald-700 text-xs px-2 py-0.5 rounded">Pemasukan</span></td>
+                                <td class="p-4 text-emerald-600">Aktif</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 5. SUMBER SETORAN -->
+            <section id="sumber-setoran" class="tab-content space-y-4 hidden">
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
+                            <tr>
+                                <th class="p-4">Metode Pembayaran</th>
+                                <th class="p-4">No. Rekening / Keterangan</th>
+                                <th class="p-4">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="p-4 font-medium">Tunai Loket Kasir</td>
+                                <td class="p-4 text-xs text-gray-500">Pembayaran langsung di kantor pondok</td>
+                                <td class="p-4 text-emerald-600">Aktif</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-medium">Transfer Bank (BRImo / QRIS)</td>
+                                <td class="p-4 text-xs text-gray-500">Rek. Pondok Pesantren - 0021-01-xxxxxx-50-2</td>
+                                <td class="p-4 text-emerald-600">Aktif</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 6. JENIS IURAN -->
+            <section id="jenis-iuran" class="tab-content space-y-4 hidden">
                 <div class="bg-amber-50 border border-amber-200 text-amber-800 p-4 rounded-xl flex items-start space-x-3">
                     <i data-lucide="alert-triangle" class="w-5 h-5 mt-0.5 shrink-0 text-amber-600"></i>
                     <p class="text-sm">Semua pemotongan dari modul iuran dapat membuat saldo melewati batas minus. Pastikan nominal dan periode sudah benar.</p>
                 </div>
-
                 <div class="flex justify-end">
                     <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 text-sm font-medium shadow-sm transition">
-                        <i data-lucide="plus" class="w-4 h-4"></i>
-                        <span>Tambah Jenis Iuran</span>
+                        <i data-lucide="plus" class="w-4 h-4"></i><span>Tambah Jenis Iuran</span>
                     </button>
                 </div>
-
                 <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
                     <table class="w-full text-left text-sm">
                         <thead class="bg-slate-50 text-gray-500 uppercase text-xs font-semibold border-b">
@@ -179,27 +321,123 @@
                                 <th class="p-4">Jatuh Tempo</th>
                                 <th class="p-4">Potong Otomatis</th>
                                 <th class="p-4">Status</th>
-                                <th class="p-4 text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100">
                             <tr class="hover:bg-slate-50">
-                                <td class="p-4 font-medium text-gray-900">Iuran Bulanan<br><span class="text-xs text-gray-400">IUR-BLN</span></td>
+                                <td class="p-4 font-medium text-gray-900">Iuran Bulanan Syahriah<br><span class="text-xs text-gray-400">IUR-BLN</span></td>
                                 <td class="p-4">Bulanan</td>
                                 <td class="p-4 font-semibold">Rp150.000</td>
-                                <td class="p-4">10</td>
+                                <td class="p-4">Tgl 10</td>
                                 <td class="p-4"><span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-xs">Ya</span></td>
                                 <td class="p-4"><span class="text-emerald-600 font-medium">Aktif</span></td>
-                                <td class="p-4 text-center">
-                                    <button class="p-1.5 border rounded text-gray-500 hover:bg-gray-100"><i data-lucide="edit-2" class="w-4 h-4"></i></button>
-                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            <!-- 2. AUDIT KEUANGAN -->
+            <!-- 7. LAPORAN SALDO -->
+            <section id="laporan-saldo" class="tab-content space-y-4 hidden">
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
+                            <tr>
+                                <th class="p-4">Santri</th>
+                                <th class="p-4">Saldo Saat Ini</th>
+                                <th class="p-4">Batas Minimum Saldo</th>
+                                <th class="p-4">Batas Minus Maksimal</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="p-4 font-medium">Ahmad Fauzi</td>
+                                <td class="p-4 font-bold text-emerald-600">Rp250.000</td>
+                                <td class="p-4">Rp20.000</td>
+                                <td class="p-4 font-mono text-rose-600">-Rp50.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 8. MUTASI SALDO -->
+            <section id="mutasi-saldo" class="tab-content space-y-4 hidden">
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
+                            <tr>
+                                <th class="p-4">Tanggal</th>
+                                <th class="p-4">Santri</th>
+                                <th class="p-4">Keterangan Transaksi</th>
+                                <th class="p-4">Nominal Mutasi</th>
+                                <th class="p-4">Saldo Akhir</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="p-4 text-xs">29/08/2026 10:00</td>
+                                <td class="p-4 font-medium">Ahmad Fauzi</td>
+                                <td class="p-4">Pemotongan Iuran Syahriah Ags 2026</td>
+                                <td class="p-4 text-rose-600 font-semibold">-Rp150.000</td>
+                                <td class="p-4 font-bold">Rp250.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 9. LAPORAN IURAN -->
+            <section id="laporan-iuran" class="tab-content space-y-4 hidden">
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
+                            <tr>
+                                <th class="p-4">Periode</th>
+                                <th class="p-4">Santri</th>
+                                <th class="p-4">Jenis Iuran</th>
+                                <th class="p-4">Tagihan</th>
+                                <th class="p-4">Status Pembayaran</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="p-4">Agustus 2026</td>
+                                <td class="p-4 font-medium">Ahmad Fauzi</td>
+                                <td class="p-4">Iuran Bulanan</td>
+                                <td class="p-4 font-semibold">Rp150.000</td>
+                                <td class="p-4"><span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-medium">Lunas (Auto-debet)</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 10. KAS PETUGAS -->
+            <section id="kas-petugas" class="tab-content space-y-4 hidden">
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
+                            <tr>
+                                <th class="p-4">Nama Petugas</th>
+                                <th class="p-4">Total Penerimaan Tunai</th>
+                                <th class="p-4">Total Pengeluaran Tunai</th>
+                                <th class="p-4">Saldo Kas di Tangan</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="p-4 font-medium">Kasir Utama (Admin)</td>
+                                <td class="p-4 text-emerald-600 font-semibold">Rp2.500.000</td>
+                                <td class="p-4 text-rose-600 font-semibold">Rp400.000</td>
+                                <td class="p-4 font-bold text-indigo-600">Rp2.100.000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 11. AUDIT KEUANGAN -->
             <section id="audit-keuangan" class="tab-content space-y-6 hidden">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
@@ -236,7 +474,69 @@
                 </div>
             </section>
 
-            <!-- 3. LANGGANAN -->
+            <!-- 12. WHATSAPP WAHA -->
+            <section id="whatsapp-waha" class="tab-content space-y-6 hidden">
+                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+                    <h3 class="text-lg font-bold text-gray-800">Status Integrasi WAHA Gateway</h3>
+                    <div class="flex items-center space-x-3">
+                        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
+                        <span class="text-sm font-semibold text-emerald-700">Terhubung (Session: ACTIVE)</span>
+                    </div>
+                    <p class="text-xs text-gray-500">Gateway ini digunakan untuk secara otomatis mengirimkan notifikasi potongan iuran dan pengingat saldo ke WhatsApp Wali Santri.</p>
+                </div>
+            </section>
+
+            <!-- 13. AUDIT LOG -->
+            <section id="audit-log" class="tab-content space-y-4 hidden">
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
+                            <tr>
+                                <th class="p-4">Waktu</th>
+                                <th class="p-4">Pengguna / Eksekutor</th>
+                                <th class="p-4">Aktivitas</th>
+                                <th class="p-4">IP Address</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y font-mono text-xs">
+                            <tr>
+                                <td class="p-4 text-gray-500">2026-08-29 14:10:22</td>
+                                <td class="p-4 text-indigo-600">SYSTEM_SCHEDULER</td>
+                                <td class="p-4 text-gray-800">AUTOMATIC_DEDUCTION_IURAN_SYAHRIAH</td>
+                                <td class="p-4 text-gray-400">127.0.0.1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 14. TUTUP BUKU -->
+            <section id="tutup-buku" class="tab-content space-y-4 hidden">
+                <div class="bg-white p-6 rounded-xl border border-gray-200 space-y-4">
+                    <h3 class="text-lg font-bold text-gray-800">Tutup Buku Transaksi</h3>
+                    <p class="text-sm text-gray-600">Fitur ini mengunci semua mutasi dan transaksi pada periode yang dipilih agar laporan keuangan final tidak dapat diubah lagi.</p>
+                    <button class="bg-rose-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-rose-700">Tutup Buku Periode Ini</button>
+                </div>
+            </section>
+
+            <!-- 15. OPERASIONAL SISTEM -->
+            <section id="operasional-sistem" class="tab-content space-y-4 hidden">
+                <div class="bg-white p-6 rounded-xl border border-gray-200 space-y-4">
+                    <h3 class="text-lg font-bold text-gray-800">Pemantauan Antrean Job System</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-slate-50 rounded-lg border">
+                            <p class="text-xs text-gray-500">Antrean WhatsApp Queue</p>
+                            <p class="text-xl font-bold text-gray-800">0 Terpending</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-lg border">
+                            <p class="text-xs text-gray-500">Auto-Debet Job Status</p>
+                            <p class="text-xl font-bold text-emerald-600">IDLE (Selesai)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 16. LANGGANAN -->
             <section id="langganan" class="tab-content space-y-6 hidden">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="md:col-span-2 bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
@@ -266,7 +566,7 @@
                     <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
                         <div>
                             <h3 class="text-lg font-bold text-gray-800 mb-2">Perpanjangan</h3>
-                            <p class="text-xs text-gray-500 mb-4">Hubungi pengelola platform untuk memperpanjang atau mengganti paket layanan.</p>
+                            <p class="text-xs text-gray-500 mb-4">Hubungi pengelola platform Saldo Santri untuk perpanjangan paket.</p>
                         </div>
                         <button class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-lg font-medium flex items-center justify-center space-x-2 text-sm">
                             <i data-lucide="message-circle" class="w-4 h-4"></i>
@@ -276,7 +576,34 @@
                 </div>
             </section>
 
-            <!-- 4. PENGATURAN -->
+            <!-- 17. PENGGUNA -->
+            <section id="pengguna" class="tab-content space-y-4 hidden">
+                <div class="flex justify-end">
+                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium">+ Tambah Pengguna</button>
+                </div>
+                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                    <table class="w-full text-left text-sm">
+                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
+                            <tr>
+                                <th class="p-4">Pengguna</th>
+                                <th class="p-4">Email</th>
+                                <th class="p-4">Peran</th>
+                                <th class="p-4">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <tr>
+                                <td class="p-4 font-medium">Administrator</td>
+                                <td class="p-4 text-xs font-mono">admin@pondok.test</td>
+                                <td class="p-4"><span class="bg-indigo-100 text-indigo-700 text-xs px-2 py-0.5 rounded">Admin</span></td>
+                                <td class="p-4 text-emerald-600">Aktif</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 18. PENGATURAN -->
             <section id="pengaturan" class="tab-content space-y-6 hidden">
                 <div class="bg-white rounded-xl border border-gray-200 shadow-sm flex overflow-hidden">
                     <div class="w-48 bg-slate-50 border-r border-gray-200 p-2 space-y-1">
@@ -303,15 +630,6 @@
                         </div>
                         <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700">Simpan Profil</button>
                     </div>
-                </div>
-            </section>
-
-            <!-- TAB GENERIC UNTUK FITUR LAIN -->
-            <section id="generic-tab" class="tab-content hidden">
-                <div class="bg-white p-8 rounded-xl border border-gray-200 text-center text-gray-500">
-                    <i data-lucide="construction" class="w-12 h-12 mx-auto mb-3 text-indigo-500"></i>
-                    <h3 class="text-lg font-bold text-gray-800" id="generic-title">Modul Siap Digunakan</h3>
-                    <p class="text-sm text-gray-500 mt-1">Halaman ini telah terintegrasi dalam skema antarmuka dashboard Saldo Santri.</p>
                 </div>
             </section>
 
