@@ -8,58 +8,84 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-gray-100 font-sans text-gray-800 antialiased flex h-screen overflow-hidden">
+<body class="bg-slate-100 font-sans text-gray-800 antialiased flex h-screen overflow-hidden">
 
     <!-- SIDEBAR -->
     <aside class="w-64 bg-slate-900 text-slate-300 flex flex-col justify-between shrink-0 h-full overflow-y-auto">
         <div>
             <!-- Header Brand -->
             <div class="p-4 border-b border-slate-800 flex items-center space-x-3">
-                <div class="p-2 bg-indigo-600 rounded-lg text-white">
+                <div class="p-2 bg-emerald-600 rounded-lg text-white">
                     <i data-lucide="wallet"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-white text-lg leading-tight">Saldo Santri</h1>
+                    <h1 class="font-bold text-white text-base leading-tight">Saldo Santri</h1>
                     <p class="text-xs text-slate-400">Pondok Pesantren</p>
                 </div>
             </div>
 
             <!-- Navigasi Utama -->
-            <nav class="p-3 space-y-6 text-sm">
-                <!-- Transaksi -->
+            <nav class="p-3 space-y-5 text-sm">
+                <!-- RINGKASAN -->
                 <div>
-                    <button onclick="switchTab('semua-transaksi')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition bg-indigo-600 text-white font-medium">
-                        <i data-lucide="arrow-left-right" class="w-4 h-4"></i>
-                        <span>Semua Transaksi</span>
+                    <p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Ringkasan</p>
+                    <button onclick="switchTab('dashboard')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg transition bg-indigo-600 text-white font-medium">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                        <span>Dashboard</span>
                     </button>
+                </div>
+
+                <!-- OPERASIONAL -->
+                <div>
+                    <p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Operasional</p>
+                    <div class="space-y-1">
+                        <button onclick="switchTab('kasir-barcode')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
+                            <i data-lucide="qr-code" class="w-4 h-4"></i>
+                            <span>Kasir Barcode</span>
+                        </button>
+                        <button onclick="switchTab('setoran-saldo')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
+                            <i data-lucide="arrow-down-left" class="w-4 h-4"></i>
+                            <span>Setoran Saldo</span>
+                        </button>
+                        <button onclick="switchTab('setoran-iuran')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
+                            <i data-lucide="layers" class="w-4 h-4"></i>
+                            <span>Setoran + Iuran</span>
+                        </button>
+                        <button onclick="switchTab('iuran-pondok')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
+                            <i data-lucide="receipt" class="w-4 h-4"></i>
+                            <span>Iuran Pondok</span>
+                        </button>
+                        <button onclick="switchTab('semua-transaksi')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
+                            <i data-lucide="arrow-left-right" class="w-4 h-4"></i>
+                            <span>Semua Transaksi</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- DATA MASTER -->
                 <div>
-                    <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Data Master</p>
+                    <p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Data Master</p>
                     <div class="space-y-1">
-                        <button onclick="switchTab('santri')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('santri')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="users" class="w-4 h-4"></i>
                             <span>Santri</span>
                         </button>
-                        <button onclick="switchTab('wali-santri')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('wali-santri')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="user-check" class="w-4 h-4"></i>
                             <span>Wali Santri</span>
                         </button>
-                        <button onclick="switchTab('kategori-transaksi')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('kategori-transaksi')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="tags" class="w-4 h-4"></i>
                             <span>Kategori Transaksi</span>
                         </button>
-                        <button onclick="switchTab('sumber-setoran')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('sumber-setoran')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="landmark" class="w-4 h-4"></i>
                             <span>Sumber Setoran</span>
                         </button>
-                        <button onclick="switchTab('jenis-iuran')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('jenis-iuran')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="receipt" class="w-4 h-4"></i>
                             <span>Jenis Iuran</span>
                         </button>
@@ -68,25 +94,25 @@
 
                 <!-- LAPORAN -->
                 <div>
-                    <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Laporan</p>
+                    <p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Laporan</p>
                     <div class="space-y-1">
-                        <button onclick="switchTab('laporan-saldo')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('laporan-saldo')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="file-text" class="w-4 h-4"></i>
                             <span>Laporan Saldo</span>
                         </button>
-                        <button onclick="switchTab('mutasi-saldo')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('mutasi-saldo')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="history" class="w-4 h-4"></i>
                             <span>Mutasi Saldo</span>
                         </button>
-                        <button onclick="switchTab('laporan-iuran')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('laporan-iuran')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="clipboard-list" class="w-4 h-4"></i>
                             <span>Laporan Iuran</span>
                         </button>
-                        <button onclick="switchTab('kas-petugas')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('kas-petugas')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="badge-dollar-sign" class="w-4 h-4"></i>
                             <span>Kas Petugas</span>
                         </button>
-                        <button onclick="switchTab('audit-keuangan')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('audit-keuangan')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="pie-chart" class="w-4 h-4"></i>
                             <span>Audit Keuangan</span>
                         </button>
@@ -95,33 +121,33 @@
 
                 <!-- SISTEM -->
                 <div>
-                    <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Sistem</p>
+                    <p class="px-3 text-[10px] font-bold text-slate-500 uppercase tracking-wider mb-2">Sistem</p>
                     <div class="space-y-1">
-                        <button onclick="switchTab('whatsapp-waha')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('whatsapp-waha')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="message-square" class="w-4 h-4"></i>
                             <span>WhatsApp WAHA</span>
                         </button>
-                        <button onclick="switchTab('audit-log')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('audit-log')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="shield-alert" class="w-4 h-4"></i>
                             <span>Audit Log</span>
                         </button>
-                        <button onclick="switchTab('tutup-buku')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('tutup-buku')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="lock" class="w-4 h-4"></i>
                             <span>Tutup Buku</span>
                         </button>
-                        <button onclick="switchTab('operasional-sistem')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('operasional-sistem')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="activity" class="w-4 h-4"></i>
                             <span>Operasional Sistem</span>
                         </button>
-                        <button onclick="switchTab('langganan')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('langganan')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="box" class="w-4 h-4"></i>
                             <span>Langganan</span>
                         </button>
-                        <button onclick="switchTab('pengguna')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('pengguna')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="user-cog" class="w-4 h-4"></i>
                             <span>Pengguna</span>
                         </button>
-                        <button onclick="switchTab('pengaturan')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 transition">
+                        <button onclick="switchTab('pengaturan')" class="nav-btn flex items-center w-full space-x-3 px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition">
                             <i data-lucide="settings" class="w-4 h-4"></i>
                             <span>Pengaturan</span>
                         </button>
@@ -133,10 +159,10 @@
         <!-- Profil User -->
         <div class="p-3 border-t border-slate-800">
             <div class="flex items-center space-x-3 px-3 py-2">
-                <div class="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold">A</div>
+                <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-bold text-xs">A</div>
                 <div>
-                    <p class="text-sm font-medium text-white">Administrator</p>
-                    <p class="text-xs text-slate-400">Admin</p>
+                    <p class="text-xs font-bold text-white">Administrator</p>
+                    <p class="text-[10px] text-slate-400">Admin</p>
                 </div>
             </div>
         </div>
@@ -146,492 +172,165 @@
     <main class="flex-1 bg-slate-50 flex flex-col h-full overflow-hidden">
         <!-- TOPBAR -->
         <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0">
-            <h2 id="page-title" class="text-xl font-bold text-gray-800">Semua Transaksi</h2>
-            <div class="flex items-center space-x-4">
-                <span class="text-xs bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-medium">Sistem Aktif</span>
+            <div>
+                <h2 id="page-title" class="text-xl font-bold text-gray-800">Dashboard</h2>
+                <p id="page-subtitle" class="text-xs text-gray-400">Ringkasan operasional hari ini</p>
+            </div>
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold text-xs">A</div>
+                <div class="text-right">
+                    <p class="text-xs font-bold text-gray-800">Administrator</p>
+                    <p class="text-[10px] text-gray-400">Admin</p>
+                </div>
             </div>
         </header>
 
         <!-- ISI TAB KONTEN -->
-        <div class="p-6 overflow-y-auto flex-1 space-y-6">
+        <div class="p-6 overflow-y-auto flex-1 space-y-5">
 
-            <!-- 1. SEMUA TRANSAKSI -->
-            <section id="semua-transaksi" class="tab-content space-y-4">
-                <div class="flex justify-between items-center flex-wrap gap-3">
-                    <input type="text" placeholder="Cari NIS / Nama Santri / Invoice..." class="border border-gray-300 rounded-lg px-3 py-2 text-sm w-72 focus:outline-none focus:border-indigo-500">
-                    <div class="flex space-x-2">
-                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 text-sm font-medium transition">
-                            <i data-lucide="plus" class="w-4 h-4"></i><span>Tambah Transaksi</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-50 text-gray-500 uppercase text-xs font-semibold border-b">
-                            <tr>
-                                <th class="p-4">Tanggal</th>
-                                <th class="p-4">No. Invoice</th>
-                                <th class="p-4">Santri</th>
-                                <th class="p-4">Kategori</th>
-                                <th class="p-4">Jenis</th>
-                                <th class="p-4">Nominal</th>
-                                <th class="p-4">Petugas</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-100">
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4">29/08/2026 14:10</td>
-                                <td class="p-4 font-mono text-xs text-indigo-600">TRX-20260829-001</td>
-                                <td class="p-4 font-medium">Ahmad Fauzi<br><span class="text-xs text-gray-400">NIS: 2025001</span></td>
-                                <td class="p-4">Topup Saldo</td>
-                                <td class="p-4"><span class="bg-emerald-100 text-emerald-700 text-xs px-2 py-0.5 rounded">Setoran</span></td>
-                                <td class="p-4 font-semibold text-emerald-600">+Rp200.000</td>
-                                <td class="p-4 text-xs text-gray-500">Kasir Utama</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- 2. SANTRI -->
-            <section id="santri" class="tab-content space-y-4 hidden">
-                <div class="flex justify-between items-center">
-                    <input type="text" placeholder="Cari santri..." class="border rounded-lg px-3 py-2 text-sm w-72">
-                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium">+ Tambah Santri</button>
-                </div>
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
-                            <tr>
-                                <th class="p-4">NIS</th>
-                                <th class="p-4">Nama Santri</th>
-                                <th class="p-4">Kamar / Kelas</th>
-                                <th class="p-4">Wali Santri</th>
-                                <th class="p-4">Saldo</th>
-                                <th class="p-4">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y">
-                            <tr>
-                                <td class="p-4 font-mono text-xs">2025001</td>
-                                <td class="p-4 font-medium">Ahmad Fauzi</td>
-                                <td class="p-4">Kamar A-01 (Kelas 1)</td>
-                                <td class="p-4">Bpk. Supriyadi</td>
-                                <td class="p-4 font-semibold text-indigo-600">Rp250.000</td>
-                                <td class="p-4"><span class="bg-emerald-100 text-emerald-700 text-xs px-2 py-0.5 rounded">Aktif</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- 3. WALI SANTRI -->
-            <section id="wali-santri" class="tab-content space-y-4 hidden">
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
-                            <tr>
-                                <th class="p-4">Nama Wali</th>
-                                <th class="p-4">No. WhatsApp</th>
-                                <th class="p-4">Santri</th>
-                                <th class="p-4">Alamat</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y">
-                            <tr>
-                                <td class="p-4 font-medium">Bpk. Supriyadi</td>
-                                <td class="p-4 font-mono text-xs text-emerald-600">628123456789</td>
-                                <td class="p-4">Ahmad Fauzi</td>
-                                <td class="p-4 text-xs text-gray-500">Jl. Pesantren No. 12, Jawa Timur</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- 4. KATEGORI TRANSAKSI -->
-            <section id="kategori-transaksi" class="tab-content space-y-4 hidden">
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
-                            <tr>
-                                <th class="p-4">Kode</th>
-                                <th class="p-4">Nama Kategori</th>
-                                <th class="p-4">Tipe</th>
-                                <th class="p-4">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y">
-                            <tr>
-                                <td class="p-4 font-mono text-xs">KAT-001</td>
-                                <td class="p-4 font-medium">Topup Saldo Utama</td>
-                                <td class="p-4"><span class="bg-emerald-100 text-emerald-700 text-xs px-2 py-0.5 rounded">Pemasukan</span></td>
-                                <td class="p-4 text-emerald-600">Aktif</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- 5. SUMBER SETORAN -->
-            <section id="sumber-setoran" class="tab-content space-y-4 hidden">
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
-                            <tr>
-                                <th class="p-4">Metode Pembayaran</th>
-                                <th class="p-4">No. Rekening / Keterangan</th>
-                                <th class="p-4">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y">
-                            <tr>
-                                <td class="p-4 font-medium">Tunai Loket Kasir</td>
-                                <td class="p-4 text-xs text-gray-500">Pembayaran langsung di kantor pondok</td>
-                                <td class="p-4 text-emerald-600">Aktif</td>
-                            </tr>
-                            <tr>
-                                <td class="p-4 font-medium">Transfer Bank (BRImo / QRIS)</td>
-                                <td class="p-4 text-xs text-gray-500">Rek. Pondok Pesantren - 0021-01-xxxxxx-50-2</td>
-                                <td class="p-4 text-emerald-600">Aktif</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- 6. JENIS IURAN -->
-            <section id="jenis-iuran" class="tab-content space-y-4 hidden">
-                <div class="bg-amber-50 border border-amber-200 text-amber-800 p-4 rounded-xl flex items-start space-x-3">
-                    <i data-lucide="alert-triangle" class="w-5 h-5 mt-0.5 shrink-0 text-amber-600"></i>
-                    <p class="text-sm">Semua pemotongan dari modul iuran dapat membuat saldo melewati batas minus. Pastikan nominal dan periode sudah benar.</p>
-                </div>
-                <div class="flex justify-end">
-                    <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center space-x-2 text-sm font-medium shadow-sm transition">
-                        <i data-lucide="plus" class="w-4 h-4"></i><span>Tambah Jenis Iuran</span>
-                    </button>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-50 text-gray-500 uppercase text-xs font-semibold border-b">
-                            <tr>
-                                <th class="p-4">Jenis Iuran</th>
-                                <th class="p-4">Frekuensi</th>
-                                <th class="p-4">Nominal</th>
-                                <th class="p-4">Jatuh Tempo</th>
-                                <th class="p-4">Potong Otomatis</th>
-                                <th class="p-4">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-100">
-                            <tr class="hover:bg-slate-50">
-                                <td class="p-4 font-medium text-gray-900">Iuran Bulanan Syahriah<br><span class="text-xs text-gray-400">IUR-BLN</span></td>
-                                <td class="p-4">Bulanan</td>
-                                <td class="p-4 font-semibold">Rp150.000</td>
-                                <td class="p-4">Tgl 10</td>
-                                <td class="p-4"><span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-xs">Ya</span></td>
-                                <td class="p-4"><span class="text-emerald-600 font-medium">Aktif</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- 7. LAPORAN SALDO -->
-            <section id="laporan-saldo" class="tab-content space-y-4 hidden">
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
-                            <tr>
-                                <th class="p-4">Santri</th>
-                                <th class="p-4">Saldo Saat Ini</th>
-                                <th class="p-4">Batas Minimum Saldo</th>
-                                <th class="p-4">Batas Minus Maksimal</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y">
-                            <tr>
-                                <td class="p-4 font-medium">Ahmad Fauzi</td>
-                                <td class="p-4 font-bold text-emerald-600">Rp250.000</td>
-                                <td class="p-4">Rp20.000</td>
-                                <td class="p-4 font-mono text-rose-600">-Rp50.000</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- 8. MUTASI SALDO -->
-            <section id="mutasi-saldo" class="tab-content space-y-4 hidden">
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
-                            <tr>
-                                <th class="p-4">Tanggal</th>
-                                <th class="p-4">Santri</th>
-                                <th class="p-4">Keterangan Transaksi</th>
-                                <th class="p-4">Nominal Mutasi</th>
-                                <th class="p-4">Saldo Akhir</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y">
-                            <tr>
-                                <td class="p-4 text-xs">29/08/2026 10:00</td>
-                                <td class="p-4 font-medium">Ahmad Fauzi</td>
-                                <td class="p-4">Pemotongan Iuran Syahriah Ags 2026</td>
-                                <td class="p-4 text-rose-600 font-semibold">-Rp150.000</td>
-                                <td class="p-4 font-bold">Rp250.000</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- 9. LAPORAN IURAN -->
-            <section id="laporan-iuran" class="tab-content space-y-4 hidden">
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
-                            <tr>
-                                <th class="p-4">Periode</th>
-                                <th class="p-4">Santri</th>
-                                <th class="p-4">Jenis Iuran</th>
-                                <th class="p-4">Tagihan</th>
-                                <th class="p-4">Status Pembayaran</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y">
-                            <tr>
-                                <td class="p-4">Agustus 2026</td>
-                                <td class="p-4 font-medium">Ahmad Fauzi</td>
-                                <td class="p-4">Iuran Bulanan</td>
-                                <td class="p-4 font-semibold">Rp150.000</td>
-                                <td class="p-4"><span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-medium">Lunas (Auto-debet)</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- 10. KAS PETUGAS -->
-            <section id="kas-petugas" class="tab-content space-y-4 hidden">
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
-                            <tr>
-                                <th class="p-4">Nama Petugas</th>
-                                <th class="p-4">Total Penerimaan Tunai</th>
-                                <th class="p-4">Total Pengeluaran Tunai</th>
-                                <th class="p-4">Saldo Kas di Tangan</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y">
-                            <tr>
-                                <td class="p-4 font-medium">Kasir Utama (Admin)</td>
-                                <td class="p-4 text-emerald-600 font-semibold">Rp2.500.000</td>
-                                <td class="p-4 text-rose-600 font-semibold">Rp400.000</td>
-                                <td class="p-4 font-bold text-indigo-600">Rp2.100.000</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- 11. AUDIT KEUANGAN -->
-            <section id="audit-keuangan" class="tab-content space-y-6 hidden">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
-                        <p class="text-xs text-gray-500 font-medium">Saldo Santri Sebelumnya</p>
-                        <h3 class="text-2xl font-bold text-gray-800 mt-1">Rp0</h3>
-                    </div>
-                    <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
-                        <p class="text-xs text-emerald-600 font-medium">Uang Masuk Saldo</p>
-                        <h3 class="text-2xl font-bold text-emerald-600 mt-1">Rp6.000.000</h3>
-                    </div>
-                    <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
-                        <p class="text-xs text-rose-600 font-medium">Uang Keluar Saldo</p>
-                        <h3 class="text-2xl font-bold text-rose-600 mt-1">Rp3.900.000</h3>
-                    </div>
-                    <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
-                        <p class="text-xs text-sky-600 font-medium">Saldo Santri Akhir</p>
-                        <h3 class="text-2xl font-bold text-sky-600 mt-1">Rp2.100.000</h3>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="bg-white p-4 rounded-xl border border-emerald-200 bg-emerald-50/30">
-                        <p class="text-xs text-gray-600">Iuran dari Saldo Santri</p>
-                        <h4 class="text-xl font-bold text-emerald-700 mt-1">Rp3.600.000</h4>
-                    </div>
-                    <div class="bg-white p-4 rounded-xl border border-gray-200">
-                        <p class="text-xs text-gray-600">Iuran Bayar Langsung</p>
-                        <h4 class="text-xl font-bold text-gray-700 mt-1">Rp0</h4>
-                    </div>
-                    <div class="bg-white p-4 rounded-xl border border-amber-200 bg-amber-50/30">
-                        <p class="text-xs text-amber-800">Uang Murni Pondok</p>
-                        <h4 class="text-xl font-bold text-amber-600 mt-1">Rp3.600.000</h4>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 12. WHATSAPP WAHA -->
-            <section id="whatsapp-waha" class="tab-content space-y-6 hidden">
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
-                    <h3 class="text-lg font-bold text-gray-800">Status Integrasi WAHA Gateway</h3>
-                    <div class="flex items-center space-x-3">
-                        <span class="w-3 h-3 rounded-full bg-emerald-500 animate-ping"></span>
-                        <span class="text-sm font-semibold text-emerald-700">Terhubung (Session: ACTIVE)</span>
-                    </div>
-                    <p class="text-xs text-gray-500">Gateway ini digunakan untuk secara otomatis mengirimkan notifikasi potongan iuran dan pengingat saldo ke WhatsApp Wali Santri.</p>
-                </div>
-            </section>
-
-            <!-- 13. AUDIT LOG -->
-            <section id="audit-log" class="tab-content space-y-4 hidden">
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
-                            <tr>
-                                <th class="p-4">Waktu</th>
-                                <th class="p-4">Pengguna / Eksekutor</th>
-                                <th class="p-4">Aktivitas</th>
-                                <th class="p-4">IP Address</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y font-mono text-xs">
-                            <tr>
-                                <td class="p-4 text-gray-500">2026-08-29 14:10:22</td>
-                                <td class="p-4 text-indigo-600">SYSTEM_SCHEDULER</td>
-                                <td class="p-4 text-gray-800">AUTOMATIC_DEDUCTION_IURAN_SYAHRIAH</td>
-                                <td class="p-4 text-gray-400">127.0.0.1</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- 14. TUTUP BUKU -->
-            <section id="tutup-buku" class="tab-content space-y-4 hidden">
-                <div class="bg-white p-6 rounded-xl border border-gray-200 space-y-4">
-                    <h3 class="text-lg font-bold text-gray-800">Tutup Buku Transaksi</h3>
-                    <p class="text-sm text-gray-600">Fitur ini mengunci semua mutasi dan transaksi pada periode yang dipilih agar laporan keuangan final tidak dapat diubah lagi.</p>
-                    <button class="bg-rose-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-rose-700">Tutup Buku Periode Ini</button>
-                </div>
-            </section>
-
-            <!-- 15. OPERASIONAL SISTEM -->
-            <section id="operasional-sistem" class="tab-content space-y-4 hidden">
-                <div class="bg-white p-6 rounded-xl border border-gray-200 space-y-4">
-                    <h3 class="text-lg font-bold text-gray-800">Pemantauan Antrean Job System</h3>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="p-4 bg-slate-50 rounded-lg border">
-                            <p class="text-xs text-gray-500">Antrean WhatsApp Queue</p>
-                            <p class="text-xl font-bold text-gray-800">0 Terpending</p>
+            <!-- 1. DASHBOARD -->
+            <section id="dashboard" class="tab-content space-y-5">
+                <!-- Kartu Statistik -->
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-center space-x-3">
+                        <div class="p-3 bg-blue-50 text-blue-500 rounded-lg"><i data-lucide="users" class="w-5 h-5"></i></div>
+                        <div>
+                            <p class="text-[11px] text-gray-400 font-medium">Santri aktif</p>
+                            <h3 class="text-xl font-bold text-gray-800">12</h3>
                         </div>
-                        <div class="p-4 bg-slate-50 rounded-lg border">
-                            <p class="text-xs text-gray-500">Auto-Debet Job Status</p>
-                            <p class="text-xl font-bold text-emerald-600">IDLE (Selesai)</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-center space-x-3">
+                        <div class="p-3 bg-emerald-50 text-emerald-500 rounded-lg"><i data-lucide="wallet" class="w-5 h-5"></i></div>
+                        <div>
+                            <p class="text-[11px] text-gray-400 font-medium">Total saldo</p>
+                            <h3 class="text-xl font-bold text-gray-800">Rp2.100.000</h3>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-center space-x-3">
+                        <div class="p-3 bg-rose-50 text-rose-500 rounded-lg"><i data-lucide="alert-circle" class="w-5 h-5"></i></div>
+                        <div>
+                            <p class="text-[11px] text-gray-400 font-medium">Total saldo minus</p>
+                            <h3 class="text-xl font-bold text-gray-800">Rp0</h3>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-center space-x-3">
+                        <div class="p-3 bg-amber-50 text-amber-500 rounded-lg"><i data-lucide="bell" class="w-5 h-5"></i></div>
+                        <div>
+                            <p class="text-[11px] text-gray-400 font-medium">Saldo di bawah batas</p>
+                            <h3 class="text-xl font-bold text-gray-800">0</h3>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm flex items-center space-x-3">
+                        <div class="p-3 bg-sky-50 text-sky-500 rounded-lg"><i data-lucide="file-text" class="w-5 h-5"></i></div>
+                        <div>
+                            <p class="text-[11px] text-gray-400 font-medium">Tagihan jatuh tempo</p>
+                            <h3 class="text-xl font-bold text-gray-800">0</h3>
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- 16. LANGGANAN -->
-            <section id="langganan" class="tab-content space-y-6 hidden">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="md:col-span-2 bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+                <!-- Section Tengah Dashboard -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    <!-- Aktivitas Hari Ini -->
+                    <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm space-y-3">
+                        <h4 class="font-bold text-gray-800 text-sm">Aktivitas hari ini</h4>
+                        <div class="space-y-2 text-xs pt-1">
+                            <div class="flex justify-between text-gray-600"><span>Transaksi</span><span class="font-bold text-gray-800">0</span></div>
+                            <div class="flex justify-between text-gray-600"><span><i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500 inline mr-1"></i>Penerimaan kas</span><span class="font-bold text-emerald-600">Rp0</span></div>
+                            <div class="flex justify-between text-gray-600"><span><i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-rose-500 inline mr-1"></i>Pengeluaran biasa</span><span class="font-bold text-rose-600">Rp0</span></div>
+                            <div class="border-t pt-2 flex justify-between text-gray-600 font-medium"><span>Sisa tagihan jatuh tempo</span><span class="font-bold text-gray-800">Rp0</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Saldo Perlu Perhatian -->
+                    <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm flex flex-col justify-between">
                         <div class="flex justify-between items-center">
-                            <h3 class="text-lg font-bold text-gray-800">Status Langganan</h3>
-                            <span class="bg-emerald-100 text-emerald-800 text-xs px-3 py-1 rounded-full font-semibold">Aktif</span>
+                            <h4 class="font-bold text-gray-800 text-sm">Saldo perlu perhatian</h4>
+                            <a href="#" class="text-xs text-blue-600 hover:underline">Lihat semua</a>
                         </div>
-                        <div class="grid grid-cols-2 gap-4 pt-2">
-                            <div>
-                                <p class="text-xs text-gray-400">Paket</p>
-                                <p class="text-xl font-bold text-gray-800">Enterprise</p>
-                                <p class="text-xs text-gray-500">Skala besar / multi unit</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-gray-400">Batas Santri</p>
-                                <p class="text-xl font-bold text-gray-800">1000 santri</p>
-                            </div>
-                        </div>
-                        <div class="border-t pt-4 flex justify-between items-center">
-                            <div>
-                                <p class="text-xs text-gray-400">Sisa Masa Berlaku</p>
-                                <p class="text-2xl font-bold text-emerald-600">4007 hari</p>
-                            </div>
+                        <div class="py-6 text-center text-gray-400 space-y-1">
+                            <div class="w-8 h-8 rounded-full border border-emerald-500 text-emerald-500 flex items-center justify-center mx-auto mb-2"><i data-lucide="check" class="w-5 h-5"></i></div>
+                            <p class="text-xs text-gray-500 font-medium">Semua saldo aman.</p>
                         </div>
                     </div>
 
-                    <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-between">
-                        <div>
-                            <h3 class="text-lg font-bold text-gray-800 mb-2">Perpanjangan</h3>
-                            <p class="text-xs text-gray-500 mb-4">Hubungi pengelola platform Saldo Santri untuk perpanjangan paket.</p>
+                    <!-- Iuran Jatuh Tempo -->
+                    <div class="bg-white p-5 rounded-xl border border-gray-100 shadow-sm flex flex-col justify-between">
+                        <div class="flex justify-between items-center">
+                            <h4 class="font-bold text-gray-800 text-sm">Iuran jatuh tempo</h4>
+                            <a href="#" class="text-xs text-blue-600 hover:underline">Lihat semua</a>
                         </div>
-                        <button class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-lg font-medium flex items-center justify-center space-x-2 text-sm">
-                            <i data-lucide="message-circle" class="w-4 h-4"></i>
-                            <span>Hubungi via WhatsApp</span>
-                        </button>
+                        <div class="py-6 text-center text-gray-400 space-y-1">
+                            <div class="w-8 h-8 rounded-full border border-emerald-500 text-emerald-500 flex items-center justify-center mx-auto mb-2"><i data-lucide="check" class="w-5 h-5"></i></div>
+                            <p class="text-xs text-gray-500 font-medium">Tidak ada tunggakan.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabel Transaksi Terbaru -->
+                <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden p-5 space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-gray-800 text-sm">Transaksi terbaru</h4>
+                        <div class="flex space-x-2">
+                            <button class="border border-blue-500 text-blue-600 px-3 py-1.5 rounded-lg text-xs font-medium flex items-center space-x-1 hover:bg-blue-50">
+                                <i data-lucide="qr-code" class="w-3.5 h-3.5"></i><span>Kasir</span>
+                            </button>
+                            <button class="bg-blue-600 text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center space-x-1 hover:bg-blue-700">
+                                <i data-lucide="plus" class="w-3.5 h-3.5"></i><span>Setoran</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-50 text-gray-400 uppercase font-bold border-b border-gray-100">
+                                <tr>
+                                    <th class="py-3 px-4">WAKTU</th>
+                                    <th class="py-3 px-4">NO. STRUK</th>
+                                    <th class="py-3 px-4">SANTRI</th>
+                                    <th class="py-3 px-4">JENIS</th>
+                                    <th class="py-3 px-4">NOMINAL</th>
+                                    <th class="py-3 px-4">SALDO AKHIR</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-50">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="py-3 px-4 text-gray-500">22/08 13:52</td>
+                                    <td class="py-3 px-4 font-mono text-gray-700">IUR-260822-000013</td>
+                                    <td class="py-3 px-4 font-medium text-gray-800">Ahmad Fauzan</td>
+                                    <td class="py-3 px-4 text-gray-600">Fee</td>
+                                    <td class="py-3 px-4 font-semibold text-rose-500">-Rp150.000</td>
+                                    <td class="py-3 px-4 text-gray-700">Rp175.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </section>
 
-            <!-- 17. PENGGUNA -->
-            <section id="pengguna" class="tab-content space-y-4 hidden">
-                <div class="flex justify-end">
-                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium">+ Tambah Pengguna</button>
-                </div>
-                <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
-                    <table class="w-full text-left text-sm">
-                        <thead class="bg-slate-50 text-gray-500 text-xs uppercase border-b">
-                            <tr>
-                                <th class="p-4">Pengguna</th>
-                                <th class="p-4">Email</th>
-                                <th class="p-4">Peran</th>
-                                <th class="p-4">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y">
-                            <tr>
-                                <td class="p-4 font-medium">Administrator</td>
-                                <td class="p-4 text-xs font-mono">admin@pondok.test</td>
-                                <td class="p-4"><span class="bg-indigo-100 text-indigo-700 text-xs px-2 py-0.5 rounded">Admin</span></td>
-                                <td class="p-4 text-emerald-600">Aktif</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-
-            <!-- 18. PENGATURAN -->
-            <section id="pengaturan" class="tab-content space-y-6 hidden">
-                <div class="bg-white rounded-xl border border-gray-200 shadow-sm flex overflow-hidden">
-                    <div class="w-48 bg-slate-50 border-r border-gray-200 p-2 space-y-1">
-                        <button class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium bg-indigo-50 text-indigo-600">Profil Pondok</button>
-                        <button class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">Kasir</button>
-                        <button class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">Struk</button>
-                        <button class="w-full text-left px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100">Template Pesan</button>
-                    </div>
-                    <div class="flex-1 p-6 space-y-4">
-                        <h3 class="font-bold text-gray-800">Profil Pondok</h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="text-xs font-semibold text-gray-600 block mb-1">Nama Pondok</label>
-                                <input type="text" value="Pondok Pesantren" class="w-full border rounded-lg p-2 text-sm focus:outline-none focus:border-indigo-500">
-                            </div>
-                            <div>
-                                <label class="text-xs font-semibold text-gray-600 block mb-1">Telepon</label>
-                                <input type="text" placeholder="Nomor Telepon" class="w-full border rounded-lg p-2 text-sm focus:outline-none focus:border-indigo-500">
-                            </div>
-                        </div>
-                        <div>
-                            <label class="text-xs font-semibold text-gray-600 block mb-1">Alamat</label>
-                            <textarea class="w-full border rounded-lg p-2 text-sm focus:outline-none focus:border-indigo-500" rows="3">Alamat pondok</textarea>
-                        </div>
-                        <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700">Simpan Profil</button>
-                    </div>
-                </div>
-            </section>
+            <!-- TAB LAINNYA (Dapat dikembangkan lebih lanjut) -->
+            <section id="kasir-barcode" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Kasir Barcode</p></section>
+            <section id="setoran-saldo" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Setoran Saldo</p></section>
+            <section id="setoran-iuran" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Setoran + Iuran</p></section>
+            <section id="iuran-pondok" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Iuran Pondok</p></section>
+            <section id="semua-transaksi" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Semua Transaksi</p></section>
+            <section id="santri" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Data Santri</p></section>
+            <section id="wali-santri" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Wali Santri</p></section>
+            <section id="kategori-transaksi" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Kategori Transaksi</p></section>
+            <section id="sumber-setoran" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Sumber Setoran</p></section>
+            <section id="jenis-iuran" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Jenis Iuran</p></section>
+            <section id="laporan-saldo" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Laporan Saldo</p></section>
+            <section id="mutasi-saldo" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Mutasi Saldo</p></section>
+            <section id="laporan-iuran" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Laporan Iuran</p></section>
+            <section id="kas-petugas" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Kas Petugas</p></section>
+            <section id="audit-keuangan" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Audit Keuangan</p></section>
+            <section id="whatsapp-waha" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman WhatsApp WAHA</p></section>
+            <section id="audit-log" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Audit Log</p></section>
+            <section id="tutup-buku" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Tutup Buku</p></section>
+            <section id="operasional-sistem" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Operasional Sistem</p></section>
+            <section id="langganan" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Langganan</p></section>
+            <section id="pengguna" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Pengguna</p></section>
+            <section id="pengaturan" class="tab-content hidden"><p class="text-sm text-gray-500">Halaman Pengaturan</p></section>
 
         </div>
     </main>
