@@ -1,0 +1,13 @@
+# Dependensi Node.js
+node_modules/
+npm-debug.log*
+
+# Environment Variables (Kredensial / API Key)
+.env
+.env.local
+
+# File Log dan Cache
+*.log
+.ds_store
+.idea/
+.vscode/
